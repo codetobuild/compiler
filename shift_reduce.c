@@ -4,6 +4,7 @@
 
 int z = 0, i = 0, j = 0, c = 0;
 char a[16], ac[20], stk[15], act[10];
+
 void check()
 {
     strcpy(ac, "REDUCE TO E -> ");
@@ -45,6 +46,7 @@ void check()
     }
     return;
 }
+
 // Driver Function
 int main()
 {
@@ -73,3 +75,10 @@ int main()
         printf("Reject\n");
     }
 }
+
+
+/*
+
+
+
+*/
