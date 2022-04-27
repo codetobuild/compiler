@@ -1,0 +1,41 @@
+%{
+/* program to recognize a c program */
+int COMMENT=0;
+%}
+identiﬁer [a-zA-Z][a-zA-Z0-9]*
+%%
+#.* { printf("\n%s is a PREPROCESSOR DIRECTIVE",yytext);}
+int |ﬂoat |char |double |while |for |do |if |break |continue |void |switch |case |long |struct |const |typedef
+|return
+|else |goto {printf("\n\t%s is a KEYWORD",yytext);}
+"/*" {COMMENT = 1;}
+/*{printf("\n\n\t%s is a COMMENT\n",yytext);}*/
+"*/" {COMMENT = 0;}
+/* printf("\n\n\t%s is a COMMENT\n",yytext);}*/
+{identiﬁer}\( {if(!COMMENT)printf("\n\nFUNCTION\n\t%s",yytext);}
+{ {if(!COMMENT) printf("\n BLOCK BEGINS");} } {if(!COMMENT) printf("\n BLOCK ENDS");}
+{identiﬁer}(\[[0-9]*\])? {if(!COMMENT) printf("\n %s IDENTIFIER",yytext);} ".*\" {if(!COMMENT) printf("\n\t%s is
+a STRING",yytext);}
+[0-9]+ {if(!COMMENT) printf("\n\t%s is a NUMBER",yytext);} {if(!COMMENT) printf("\n\t");ECHO;printf("\n");}
+( ECHO;
+{if(!COMMENT)printf("\n\t%s is an ASSIGNMENT OPERATOR",yytext);}
+<= |>= |< |== |> {if(!COMMENT) printf("\n\t%s is a RELATIONAL OPERATOR",yytext);}
+%%
+int main(int argc,char **argv)
+{
+if (argc > 1)
+{
+FILE *ﬁle;
+18ﬁle = fopen(argv[1],"r"); if(!ﬁle)
+{
+printf("could not open %s \n",argv[1]); exit(0);
+}
+yyin = ﬁle;
+}
+yylex();
+printf("\n\n Total No.Of comments are %d",cnt); return 0;
+}
+int yywrap()
+{
+return 1;
+}
