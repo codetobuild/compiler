@@ -21,7 +21,9 @@ switch |
 return |
 else |
 goto {printf("\n\t%s is a keyword",yytext);}
-"/*" {COMMENT=1;}{printf("\n\t %s is a COMMENT",yytext);}
+
+"/*" {COMMENT=1;}{printf("\n %s is a COMMENT",yytext);}
+
 {identifier}\( {if(!COMMENT)printf("\nFUNCTION \n\t%s",yytext);}
 \{  {if(!COMMENT)printf("\n BLOCK BEGINS");}
 \}  {if(!COMMENT)printf("BLOCK ENDS ");}
